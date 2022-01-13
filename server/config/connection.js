@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 mongoose.connect(
-  process.env.MONGODB_URI || 'mongodb+srv://group3:shmovieapp123@cluster0.mfj9f.mongodb.net/shmovie-app?retryWrites=true&w=majority',
+  process.env.MONGODB_URI || 'mongodb://localhost/shmovies',
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
