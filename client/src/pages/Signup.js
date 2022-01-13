@@ -1,15 +1,18 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 // import { useMutation } from '@apollo/client';
-// import { LOGIN_USER } from '../utils/mutations';
+// import { ADD_USER } from '../utils/mutations';
 import { Form, Button, Alert } from "react-bootstrap";
-
 // import Auth from '../utils/auth';
 
-const Login = (props) => {
-  const [formState, setFormState] = useState({ username: "", password: "" });
+const Signup = () => {
+  const [formState, setFormState] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  // const [login, { error }] = useMutation(LOGIN_USER);
+  // const [addUser, { error }] = useMutation(ADD_USER);
 
   // update state based on form input changes
   const handleChange = (event) => {
@@ -31,19 +34,19 @@ const Login = (props) => {
       event.stopPropagation();
     }
     try {
-      // const { data } = await login({
+      // const { data } = await addUser({
       //   variables: { ...formState },
       // });
-
-      // Auth.login(data.login.token);
+      // Auth.login(data.addUser.token);
     } catch (e) {
       console.error(e);
-      setShowAlert(true)
+      setShowAlert(true);
     }
 
     // clear form values
     setFormState({
       username: "",
+      email: "",
       password: "",
     });
   };
@@ -74,6 +77,21 @@ const Login = (props) => {
             Username is required!
           </Form.Control.Feedback> */}
         </Form.Group>
+        {/* email input */}
+        <Form.Group>
+          <Form.Label htmlFor="email">Email</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="email"
+            name="email"
+            onChange={handleChange}
+            value={formState.email}
+            required
+          />
+          {/* <Form.Control.Feedback type="invalid">
+            Email is required!
+          </Form.Control.Feedback> */}
+        </Form.Group>
         {/* Password input */}
         <Form.Group>
           <Form.Label htmlFor="password">Password</Form.Label>
@@ -90,7 +108,11 @@ const Login = (props) => {
           </Form.Control.Feedback> */}
         </Form.Group>
         <Button
-          disabled={!(formState.username && formState.password)}
+          disabled={
+            !(formState.username && 
+              formState.password && 
+              formState.email)
+          }
           type="submit"
           variant="success"
         >
@@ -101,4 +123,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default Signup;
