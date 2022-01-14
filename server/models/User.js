@@ -20,16 +20,17 @@ const userSchema = new Schema(
         ],
         save_movies:[movieSchema]
     },
-    {
-        toJSON: {
-            virtuals: true
-        }
-    }
+  
+  {
+    toJSON: {
+      virtuals: true,
+    },
+  }
 );
 
 userSchema.methods.Password = function(password) {
     return bcrypt.compareSync(password, this.password);
 };
 
-const User = model('User', userSchema);
+const User = model("User", userSchema);
 module.exports = User;
