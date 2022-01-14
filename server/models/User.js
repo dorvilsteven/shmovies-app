@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
-
+const movieSchema = require('./Movie')
 const userSchema = new Schema(
     {
         username: {
@@ -9,7 +9,7 @@ const userSchema = new Schema(
             required: true,
             unique: true
         },
-        hash_password: {
+        password: {
             type: String
         },
         rented_movies: [
@@ -17,7 +17,8 @@ const userSchema = new Schema(
                 type: Schema.Types.ObjectId,
                 ref: 'Movie'
             }
-        ]
+        ],
+        save_movies:[movieSchema]
     },
     {
         toJSON: {
@@ -26,8 +27,8 @@ const userSchema = new Schema(
     }
 );
 
-userSchema.methods.comparePassword = function(password) {
-    return bcrypt.compareSync(password, this.hash_password);
+userSchema.methods.Password = function(password) {
+    return bcrypt.compareSync(password, this.password);
 };
 
 const User = model('User', userSchema);
