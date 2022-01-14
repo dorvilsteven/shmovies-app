@@ -8,8 +8,8 @@ const typeDefs = gql`
 
   type User {
     _id: ID
-    email: String!
     username: String!
+    movies: [Movie]
   }
 
   type Query {
@@ -17,7 +17,22 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    login(email: String!, password: String!): Auth
+    login(username: String!, password: String!): Auth
+  }
+
+  type Movie {
+      _id: ID
+      title: String!
+      director: String!
+      category: String!
+      image: String!
+      reactions: [Reaction]
+  }
+
+  type Reaction {
+      _id: ID
+      reactionBody: String!
+      username: String!
   }
 `;
 

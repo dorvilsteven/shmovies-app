@@ -1,4 +1,5 @@
 const { login, me } = require('../apis/auth');
+
 const resolvers = {
   Query: {
     me
@@ -7,4 +8,5 @@ const resolvers = {
     login
   }
 };
+
 module.exports = resolvers;

@@ -11,13 +11,12 @@ const movieSchema = new Schema(
             type: String,
             required: true
         },
-        trailer: {
-            type: String,
-            required: true
-        },
         category: {
             type: String,
             required: true
+        },
+        image: {
+            type: String,
         },
         reactions: []
     },
@@ -28,10 +27,6 @@ const movieSchema = new Schema(
         }
     }
 );
-
-movieSchema.virtual('reactionCount').get(function() {
-    return this.reactions.length;
-});
 
 const Movie = model('Movie', movieSchema);
 
