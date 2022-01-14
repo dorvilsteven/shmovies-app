@@ -1,33 +1,43 @@
-const { Schema, model } = require('mongoose');
-const bcrypt = require('bcrypt');
+const { Schema, model } = require("mongoose");
+const bcrypt = require("bcrypt");
 
 const userSchema = new Schema(
-    {
-        username: {
-            type: String,
-            trim: true,
-            required: true
-        },
-        hash_password: {
-            type: String
-        },
-        rented_movies: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: 'Movie'
-            }
-        ]
+  {
+    username: {
+      type: String,
+      trim: true,
+      required: true,
     },
-    {
-        toJSON: {
-            virtuals: true
-        }
-    }
+
+    password: {
+      type: String,
+      required: true,
+    },
+    rented_movies: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Movie",
+      },
+    ],
+  },
+  {
+    toJSON: {
+      virtuals: true,
+    },
+  }
 );
 
-userSchema.methods.comparePassword = function(password) {
-    return bcrypt.compareSync(password, this.hash_password);
+userSchema.pre("save", async function (next) {
+  if (this.isNew || this.isModified("password")) {
+    const saltRounds = 10;
+    this.password = await bcrypt.hash(this.password, saltRounds);
+  }
+
+  next();
+});
+userSchema.methods.isCorrectPassword = async function (password) {
+  return bcrypt.compare(password, this.password);
 };
 
-const User = model('User', userSchema);
+const User = model("User", userSchema);
 module.exports = User;
