@@ -9,11 +9,13 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 
 const startServer = async () => {
+  
   const server = new ApolloServer({
     typeDefs,
     resolvers,
     context: authMiddleware,
   });
+
   await server.start();
   server.applyMiddleware({ app });
   console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
