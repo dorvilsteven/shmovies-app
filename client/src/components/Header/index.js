@@ -17,17 +17,18 @@ const Header = () => {
         <Nav className="me-auto">
           {Auth.loggedIn() ? (
             <>
-          <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link href="/" onClick={logout}>
-            Logout
-          </Nav.Link>
-          </>
+              <Nav.Link href="/">Home</Nav.Link>
+              <Nav.Link href="/dashboard">Dashboard</Nav.Link>
+              <Nav.Link href="/" onClick={logout}>
+                Logout
+              </Nav.Link>
+            </>
           ) : ( 
             <>
-          <Nav.Link href="/login">Login</Nav.Link>
-          <Nav.Link href="/signup">Sign Up</Nav.Link>
-          </>
-           )}
+              <Nav.Link href="/login">Login</Nav.Link>
+              <Nav.Link href="/signup">Sign Up</Nav.Link>
+            </>
+          )}
         </Nav>
       </Container>
     </Navbar>

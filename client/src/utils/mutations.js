@@ -25,13 +25,12 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_MOVIE = gql`
-  mutation addThought($thoughtText: String!) {
-    addThought(thoughtText: $thoughtText) {
+  mutation addMovie($title: String!, $director: String!, $category: String!) {
+    addMovie(title: $title, director: $director, category: $category) {
       _id
-      thoughtText
-      createdAt
-      username
-      reactionCount
+      title
+      director
+      category
       reactions {
         _id
       }
@@ -40,14 +39,12 @@ export const ADD_MOVIE = gql`
 `;
 
 export const ADD_REACTION = gql`
-  mutation addReaction($thoughtId: ID!, $reactionBody: String!) {
-    addReaction(thoughtId: $thoughtId, reactionBody: $reactionBody) {
+  mutation addReaction($reactionBody: String!, $username: String!) {
+    addReaction(reactionBody: $reactionBody, username: $username) {
       _id
-      reactionCount
       reactions {
         _id
         reactionBody
-        createdAt
         username
       }
     }
