@@ -12,7 +12,8 @@ const MovieForm = () => {
   });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  const [addMovie, { error }] = useMutation(ADD_MOVIE, {
+
+  const [addMovie] = useMutation(ADD_MOVIE, {
     update(cache, { data: { addMovie } }) {
       try {
         const { movies } = cache.readQuery({ query: QUERY_MOVIES });
