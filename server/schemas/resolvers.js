@@ -41,48 +41,48 @@ const resolvers = {
       return { token, user };
     },
     addUser: async (parent, args) => {
-    const user = await User.create(args);
-    const token = signToken(user);
+      const user = await User.create(args);
+      const token = signToken(user);
 
-    return { token, user };
-  },
+      return { token, user };
+    },
 
-  addMovie: async (parent, args, context) => {
-    if (context.user) {
-      const movies = await Movie.create({
-        ...args,
-        username: context.user.username,
-      });
+    addMovie: async (parent, args, context) => {
+      if (context.user) {
+        const movies = await Movie.create({
+          ...args,
+          username: context.user.username,
+        });
 
-      await User.findByIdAndUpdate(
-        { _id: context.user._id },
-        { $push: { save_movies: movies._id } },
-        { new: true }
-      );
+        await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $push: { save_movies: movies._id } },
+          { new: true }
+        );
 
-      return movies;
-    }
+        return movies;
+      }
 
-    throw new AuthenticationError("You need to be logged in!");
-  },
+      throw new AuthenticationError("You need to be logged in!");
+    },
 
-  addReaction: async (parent, { movieId, reactionBody }, context) => {
-    if (context.user) {
-      const updatedThought = await Thought.findOneAndUpdate(
-        { _id: thoughtId },
-        {
-          $push: {
-            reactions: { reactionBody, username: context.user.username },
+    addReaction: async (parent, { movieId, reactionBody }, context) => {
+      if (context.user) {
+        const updatedThought = await Thought.findOneAndUpdate(
+          { _id: thoughtId },
+          {
+            $push: {
+              reactions: { reactionBody, username: context.user.username },
+            },
           },
-        },
-        { new: true, runValidators: true }
-      );
+          { new: true, runValidators: true }
+        );
 
-      return updatedThought;
-    }
+        return updatedThought;
+      }
 
-    throw new AuthenticationError("You need to be logged in!");
-  },
+      throw new AuthenticationError("You need to be logged in!");
+    },
   },
   
 };

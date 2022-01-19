@@ -19,6 +19,7 @@ const Header = () => {
             <>
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/dashboard">Dashboard</Nav.Link>
+              <Nav.Link href="/add-movie">Add Movie</Nav.Link>
               <Nav.Link href="/" onClick={logout}>
                 Logout
               </Nav.Link>

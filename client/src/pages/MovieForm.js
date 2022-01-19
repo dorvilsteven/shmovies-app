@@ -1,23 +1,40 @@
 import React, { useState } from "react";
-// import { useMutation } from '@apollo/client';
-// import { ADD_MOVIE } from '../utils/mutations';
+import { useMutation } from '@apollo/client';
+import { ADD_MOVIE } from '../utils/mutations';
+import { QUERY_ME, QUERY_MOVIES } from "../utils/queries";
 import { Form, Button, Alert } from "react-bootstrap";
-// import Auth from '../utils/auth';
 
 const MovieForm = () => {
   const [formState, setFormState] = useState({
     title: "",
     director: "",
-    cetegory: "",
+    category: "",
   });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  // const [addUser, { error }] = useMutation(ADD_USER);
+  const [addMovie, { error }] = useMutation(ADD_MOVIE, {
+    update(cache, { data: { addMovie } }) {
+      try {
+        const { movies } = cache.readQuery({ query: QUERY_MOVIES });
+        cache.writeQuery({
+          query: QUERY_MOVIES,
+          data: { movies: [addMovie, ...movies] }
+        });
+      } catch(e) {
+        console.error(e);
+      }
+
+      const { me } = cache.readQuery({ query: QUERY_ME });
+      cache.writeQuery({
+        query: QUERY_ME,
+        data: { me: { ...me, movies: [...me.movies, addMovie] } }
+      });
+    }
+  });
 
   // update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
-
     setFormState({
       ...formState,
       [name]: value,
@@ -33,21 +50,21 @@ const MovieForm = () => {
       event.stopPropagation();
     }
     try {
-      // const { data } = await addMovie({
-      //   variables: { ...formState },
-      // });
+      await addMovie({
+        variables: { ...formState },
+      });
+      // clear form values
+      setFormState({
+        title: "",
+        director: "",
+        category: "",
+      });
     } catch (e) {
       console.error(e);
       setShowAlert(true);
     }
-    // clear form values
-    setFormState({
-      title: "",
-      director: "",
-      category: "",
-    });
   };
-
+  console.log(formState);
   return (
     <>
       <Form 
@@ -65,7 +82,7 @@ const MovieForm = () => {
           onClose={() => setShowAlert(false)}
           show={showAlert}
           variant="danger"
-        >issue with login</Alert>
+        >Movie not added, please try again.</Alert>
         {/* title input */}
         <Form.Group>
           <Form.Label htmlFor="title">Title</Form.Label>
@@ -77,9 +94,6 @@ const MovieForm = () => {
             value={formState.title}
             required
           />
-          {/* <Form.Control.Feedback type="invalid">
-            Username is required!
-          </Form.Control.Feedback> */}
         </Form.Group>
         {/* director input */}
         <Form.Group>
@@ -92,9 +106,6 @@ const MovieForm = () => {
             value={formState.director}
             required
           />
-          {/* <Form.Control.Feedback type="invalid">
-            Email is required!
-          </Form.Control.Feedback> */}
         </Form.Group>
         {/* category input */}
         <Form.Group>
@@ -107,21 +118,25 @@ const MovieForm = () => {
             value={formState.category}
             required
           />
-          {/* <Form.Control.Feedback type="invalid">
-            Password is required!
-          </Form.Control.Feedback> */}
         </Form.Group>
-        <Button
-          disabled={
-            !(formState.title && 
-              formState.director && 
-              formState.category)
-          }
-          type="submit"
-          variant="success"
+        <Form.Group
+          style={{
+            display: 'flex'    
+          }}
         >
-          Post Movie
-        </Button>
+          <Button
+            disabled={
+              !(formState.title && formState.director && formState.category)
+            }
+            type="submit"
+            variant="success"
+            style={{
+              margin: 'auto'    
+            }}
+          >
+            Post Movie
+          </Button>
+        </Form.Group>
       </Form>
     </>
   );
