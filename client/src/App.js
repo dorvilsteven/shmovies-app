@@ -11,7 +11,10 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import MovieForm from "./pages/MovieForm";
+import Movie from "./pages/Movie";
 import Signup from "./pages/Signup";
+import Dashboard from "./pages/Dashboard";
 import "./App.css";
 
 const httpLink = createHttpLink({
@@ -44,6 +47,9 @@ function App() {
               <Route exact path="/" element={<Home />} />
               <Route exact path="/login" element={<Login />} />
               <Route exact path="/signup" element={<Signup />} />
+              <Route exact path="/add-movie" element={<MovieForm />} />
+              <Route exact path="/movie" element={<Movie />} />
+              <Route exact path="/dashboard" element={<Dashboard />} />
             </Routes>
           </div>
           <Footer />

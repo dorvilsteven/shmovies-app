@@ -50,14 +50,23 @@ const Login = (props) => {
 
   return (
     <>
-      <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
+      <Form 
+        noValidate 
+        validated={validated} 
+        style={{
+          border: '1px solid #292b2c',
+          padding: '1em',
+          width: '50%',
+          margin: 'auto'
+        }} 
+        onSubmit={handleFormSubmit}>
         <Alert
           dismissible
           onClose={() => setShowAlert(false)}
           show={showAlert}
           variant="danger"
         >
-          issue with login
+          Incorrect Username or Password
         </Alert>
         {/* username input */}
         <Form.Group>

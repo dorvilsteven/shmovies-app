@@ -51,7 +51,16 @@ const Signup = () => {
 
   return (
     <>
-      <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
+      <Form 
+        noValidate 
+        validated={validated}
+        style={{
+          border: '1px solid #292b2c',
+          padding: '1em',
+          width: '50%',
+          margin: 'auto'
+        }}  
+        onSubmit={handleFormSubmit}>
         <Alert
           dismissible
           onClose={() => setShowAlert(false)}
