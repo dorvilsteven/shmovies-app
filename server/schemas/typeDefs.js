@@ -36,13 +36,15 @@ const typeDefs = gql`
   type Query {
     me: User
     users: [User]
-    movies(_id: ID!): [Movie]
+    user(username: String!): User
+    movies(username: String): [Movie]
+    movie(_id: ID!): Movie
   }
 
   type Mutation {
     login(username: String!, password: String!): Auth
     addUser(username: String!, password: String!): Auth
-    addMovie(movieData: MovieInput!): User
+    addMovie(movieData: MovieInput!): Movie
     addReaction(movieId: ID!, reactionBody: String!): Movie
   }
 `;

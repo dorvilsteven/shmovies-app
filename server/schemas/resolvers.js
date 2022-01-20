@@ -18,9 +18,16 @@ const resolvers = {
     users: async () => {
       return User.find().select("-__v -password").populate("save_movies");
     },
-    movies: async (parent, { _id }) => {
-      return Movie.findOne({ _id });
+    user: async ({ username }) => {
+      return User.find().select("-__v -password").populate("save_movies");
     },
+    movies: async (parent, { username }) => {
+      const params = username ? { username } : {};
+      return Movie.find(params);
+    },
+    movie: async (parent, { _id }) => {
+      return Movie.findOne({ _id });
+    }
   },
 
   Mutation: {

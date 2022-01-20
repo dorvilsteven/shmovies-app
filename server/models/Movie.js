@@ -20,15 +20,10 @@ const movieSchema = new Schema(
   },
   {
     toJSON: {
-      virtuals: true,
       getters: true,
     },
   }
 );
-
-movieSchema.virtual("reactionCount").get(function () {
-  return this.reactions.length;
-});
 
 const Movie = model("Movie", movieSchema);
 

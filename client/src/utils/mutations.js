@@ -31,21 +31,18 @@ export const ADD_MOVIE = gql`
       title
       director
       category
-      reactions {
-        _id
-      }
     }
   }
 `;
 
 export const ADD_REACTION = gql`
-  mutation addReaction($reactionBody: String!, $username: String!) {
-    addReaction(reactionBody: $reactionBody, username: $username) {
+  mutation addReaction($reactionBody: String!, $movieId: ID!) {
+    addReaction(reactionBody: $reactionBody, movieId: $movieId) {
       _id
       reactions {
         _id
         reactionBody
-        username
+        movieId
       }
     }
   }

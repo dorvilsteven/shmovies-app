@@ -7,6 +7,17 @@ export const QUERY_MOVIES = gql`
       title
       director
       category
+    }
+  }
+`;
+
+export const QUERY_MOVIE = gql`
+  query movie($id: ID!) {
+    movie(_id: $id) {
+      _id
+      title
+      director
+      category
       reactions {
         _id
         reactionBody
