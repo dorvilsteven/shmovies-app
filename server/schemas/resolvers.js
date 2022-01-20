@@ -48,22 +48,9 @@ const resolvers = {
     },
 
     addMovie: async (parent, args, context) => {
-      if (context.user) {
-        const movies = await Movie.create({
-          ...args,
-          username: context.user.username,
-        });
+      const movies = await Movie.create(args);
 
-        await User.findByIdAndUpdate(
-          { _id: context.user._id },
-          { $push: { save_movies: movies._id } },
-          { new: true }
-        );
-
-        return movies;
-      }
-
-      throw new AuthenticationError("You need to be logged in!");
+      return movies;
     },
 
     addReaction: async (parent, { movieId, reactionBody }, context) => {
@@ -84,7 +71,6 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
   },
-  
 };
 
 module.exports = resolvers;

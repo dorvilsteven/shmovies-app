@@ -12,7 +12,6 @@ const typeDefs = gql`
     title: String
     director: String
     category: String
-    reactions: [Reaction]
   }
 
   type Reaction {
@@ -42,7 +41,7 @@ const typeDefs = gql`
   type Mutation {
     login(username: String!, password: String!): Auth
     addUser(username: String!, password: String!): Auth
-    addMovie(movieData: MovieInput!): User
+    addMovie(title: String, director: String, category: String): Movie
     addReaction(movieId: ID!, reactionBody: String!): Movie
   }
 `;

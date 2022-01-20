@@ -31,9 +31,6 @@ export const ADD_MOVIE = gql`
       title
       director
       category
-      reactions {
-        _id
-      }
     }
   }
 `;
@@ -50,4 +47,3 @@ export const ADD_REACTION = gql`
     }
   }
 `;
-
