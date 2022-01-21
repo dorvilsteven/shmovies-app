@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useQuery } from "@apollo/client";
-import { QUERY_MOVIE } from '../utils/queries';
+// import { useQuery } from "@apollo/client";
+// import { QUERY_MOVIE } from '../utils/queries';
 import MovieCard from "../components/MovieCard/MovieCard";
 import ReactionCard from "../components/ReactionCard/ReactionCard";
 import { Form, Button, Alert } from "react-bootstrap";
@@ -9,7 +9,7 @@ const Movie = (props) => {
     const {
         movieId
     } = props
-    const { loading, data } = useQuery(QUERY_MOVIE);
+    // const { loading, data } = useQuery(QUERY_MOVIE);
     return (
         <div 
             className="single-movie-container"
