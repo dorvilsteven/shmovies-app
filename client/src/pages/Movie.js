@@ -34,40 +34,17 @@ const Movie = (props) => {
                     style={{
                     border: "1px solid #292B2C",
                     padding: "1em",
-                    width: "50%",
+                    width: "100%",
                     margin: "auto",
                     }}
                     // onSubmit={handleFormSubmit}
                 >
-                    
-                    Mov
-                    {/* title input */}
+                    {/* comment input */}
                     <Form.Group>
-                    <Form.Label htmlFor="title">Title</Form.Label>
                     <Form.Control
                         type="text"
-                        placeholder="Title"
-                        name="title"
-                        required
-                    />
-                    </Form.Group>
-                    {/* director input */}
-                    <Form.Group>
-                    <Form.Label htmlFor="email">Director</Form.Label>
-                    <Form.Control
-                        type="text"
-                        placeholder="Director"
-                        name="director"
-                        required
-                    />
-                    </Form.Group>
-                    {/* category input */}
-                    <Form.Group>
-                    <Form.Label htmlFor="password">Category</Form.Label>
-                    <Form.Control
-                        type="text"
-                        placeholder="Category"
-                        name="category"
+                        placeholder="Reactions Here"
+                        name="reactionText"
                         required
                     />
                     </Form.Group>
@@ -78,7 +55,7 @@ const Movie = (props) => {
                         margin: "auto",
                         }}
                     >
-                        Post Movie
+                        Post Reaction
                     </Button>
                 </Form>
                 {/* {Reactions} */}
